@@ -56,8 +56,6 @@ RCT_EXPORT_METHOD(initialize) {
   WebGLViewManager *strongSelf = self;
   __weak RCTJSCExecutor *weakJSCExecutor = [self getJSCExecutor];
   
-  // This will only work with one WebGL view at a time -- need to think about how we
-  // can solve this.
   [weakJSCExecutor addSynchronousHookWithName:@"RNWebGLGetContext" usingBlock:^NSString* (NSNumber *reactTag){
     RCTJSCExecutor *strongJSCExecutor = weakJSCExecutor;
     if (!strongJSCExecutor.valid) {
@@ -73,10 +71,6 @@ RCT_EXPORT_METHOD(initialize) {
     });
     return contextJSON;
   }];
-//
-//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//    
-//  });
 }
 
 @end
