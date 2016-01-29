@@ -1,4 +1,9 @@
-import React, { findNodeHandle, requireNativeComponent } from 'react-native';
+import React, {
+  findNodeHandle,
+  requireNativeComponent,
+  NativeAppEventEmitter
+} from 'react-native';
+import WebGLFakeCanvas from './WebGLFakeCanvas';
 const { NativeModules } = React;
 
 const WEBGL_VIEW_REF = 'webgl';
@@ -6,19 +11,36 @@ const WEBGL_VIEW_REF = 'webgl';
 export default class WebGLView extends React.Component {
   
   static propTypes = {
-    
   };
   
-  componentWillMount() {
-    NativeModules.WebGLViewManager.initialize();
+  constructor() {
+    super();
+    this.subscriptions = [];
   }
   
   setNativeProps(props) {
     this.refs[WEBGL_VIEW_REF].setNativeProps(props);
   }
   
+  componentWillMount() {
+    this.subscriptions.push(NativeAppEventEmitter.addListener('RNWebGLContextLost',
+      (reactId) => {
+        if (reactId === findNodeHandle(this)) {
+          this.canvas.emit('webglcontextlost');
+        }
+      }
+    ));
+    NativeModules.WebGLViewManager.initialize();
+  }
+  
+  componentWillUnmount() {
+    this.subscriptions.forEach(sub => sub.remove());
+  }
+  
   getContext() {
-    return JSON.parse(global.RNWebGLGetContext(findNodeHandle(this)));
+    let context = JSON.parse(global.RNWebGLGetContext(findNodeHandle(this)));
+    context.canvas = new WebGLFakeCanvas(context.canvas);
+    return context;
   }
   
   render() {
