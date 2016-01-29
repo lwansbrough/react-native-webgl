@@ -33,9 +33,7 @@ RCT_EXPORT_MODULE()
 
 - (UIView *)view
 {
-  EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-  WebGLView *view = [[WebGLView alloc] initWithContext:context];
-  
+  WebGLView *view = [[WebGLView alloc] init];
   return view;
 }
 

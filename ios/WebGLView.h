@@ -9,15 +9,16 @@
 #import <GLKit/GLKit.h>
 #import <UIKit/UIKit.h>
 #import "UIView+React.h"
+#import "WebGLContext.h"
 
-@interface WebGLView : UIView <GLKViewDelegate>
+@interface WebGLView : UIView <GLKViewDelegate> {
+  WebGLContext *webGLContext;
+  CADisplayLink *displayLink;
+  GLKView *glkView;
+  
+  BOOL isPaused;
+}
 
-@property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, strong) GLKView *glkView;
-
-- (id)initWithContext:(EAGLContext *)context;
-- (id)initWithFrame:(CGRect)frame context:(EAGLContext *)context;
-
-- (EAGLContext*)getContext;
+- (WebGLContext*)getContext;
 
 @end

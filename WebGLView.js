@@ -18,7 +18,7 @@ export default class WebGLView extends React.Component {
   }
   
   getContext() {
-    return global.RNWebGLGetContext(findNodeHandle(this));
+    return JSON.parse(global.RNWebGLGetContext(findNodeHandle(this)));
   }
   
   render() {

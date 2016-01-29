@@ -11,27 +11,29 @@
 
 @implementation WebGLView
 
-- (void)setUpWithContext:(EAGLContext *)context {
+- (void)setUp {
   if (self.reactTag) {
-    self.glkView = [[GLKView alloc] initWithFrame:self.bounds context:context];
-    self.glkView.delegate = self;
-    self.glkView.enableSetNeedsDisplay = NO;
+    webGLContext = [[WebGLContext alloc] init];
+    glkView = [[GLKView alloc] initWithFrame:self.bounds context:[webGLContext context]];
+    glkView.delegate = self;
+    glkView.enableSetNeedsDisplay = NO;
     
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
-    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+    [displayLink setFrameInterval:1];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
   }
 }
 
-- (id)initWithContext:(EAGLContext *)context {
+- (id)init {
   if (self = [super init]) {
-    [self setUpWithContext:context];
+    [self setUp];
   }
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame context:(EAGLContext *)context {
+- (id)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    [self setUpWithContext:context];
+    [self setUp];
   }
   return self;
 }
@@ -43,16 +45,26 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  self.glkView.bounds = self.bounds;
-  [self addSubview:self.glkView];
+  glkView.bounds = self.bounds;
+  [webGLContext resizeToWidth:glkView.bounds.size.width height:glkView.bounds.size.height];
+  [self addSubview:glkView];
 }
 
 - (void)render:(CADisplayLink*)displayLink {
-  [self.glkView display];
+  if (isPaused) { return; }
+  [glkView display];
 }
 
 - (NSDictionary *)getContext {
-  return [[NSDictionary alloc] init];
+  
+  
+  NSMutableDictionary *canvas = [[NSMutableDictionary alloc] init];
+  [canvas setObject:[NSNumber numberWithFloat:self.bounds.size.height] forKey:@"height"];
+  [canvas setObject:[NSNumber numberWithFloat:self.bounds.size.width] forKey:@"width"];
+  
+  NSMutableDictionary *context = [[NSMutableDictionary alloc] init];
+  [context setValue:canvas forKey:@"canvas"];
+  return context;
 }
 
 @end

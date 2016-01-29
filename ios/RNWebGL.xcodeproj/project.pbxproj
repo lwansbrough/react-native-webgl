@@ -10,6 +10,7 @@
 		413D1C1B1C59BA9600F311C9 /* WebGLViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D1C1A1C59BA9600F311C9 /* WebGLViewManager.m */; };
 		413D1C1D1C59BB7900F311C9 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413D1C1C1C59BB7900F311C9 /* GLKit.framework */; };
 		413D1C391C5A0D7800F311C9 /* WebGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D1C381C5A0D7800F311C9 /* WebGLView.m */; };
+		413D1C3C1C5AFDA500F311C9 /* WebGLContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D1C3B1C5AFDA500F311C9 /* WebGLContext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		413D1C1C1C59BB7900F311C9 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		413D1C371C5A0D7800F311C9 /* WebGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLView.h; sourceTree = SOURCE_ROOT; };
 		413D1C381C5A0D7800F311C9 /* WebGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebGLView.m; sourceTree = SOURCE_ROOT; };
+		413D1C3A1C5AFDA500F311C9 /* WebGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLContext.h; sourceTree = SOURCE_ROOT; };
+		413D1C3B1C5AFDA500F311C9 /* WebGLContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebGLContext.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 				413D1C1A1C59BA9600F311C9 /* WebGLViewManager.m */,
 				413D1C371C5A0D7800F311C9 /* WebGLView.h */,
 				413D1C381C5A0D7800F311C9 /* WebGLView.m */,
+				413D1C3A1C5AFDA500F311C9 /* WebGLContext.h */,
+				413D1C3B1C5AFDA500F311C9 /* WebGLContext.m */,
 			);
 			path = RNWebGL;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				413D1C3C1C5AFDA500F311C9 /* WebGLContext.m in Sources */,
 				413D1C391C5A0D7800F311C9 /* WebGLView.m in Sources */,
 				413D1C1B1C59BA9600F311C9 /* WebGLViewManager.m in Sources */,
 			);
